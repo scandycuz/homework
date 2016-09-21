@@ -19,7 +19,7 @@ describe Dessert do
     end
 
     it "starts ingredients as an empty array" do
-      expect(brownie.ingredients).to eq([])
+      expect(brownie.ingredients).to be_empty
     end
 
     it "raises an argument error when given a non-integer quantity" do
@@ -28,16 +28,37 @@ describe Dessert do
   end
 
   describe "#add_ingredient" do
-    it "adds an ingredient to the ingredients array"
+    before(:each) do
+      brownie.add_ingredient('barley')
+    end
+
+    it "adds an ingredient to the ingredients array" do
+      expect(brownie.ingredients).to include('barley')
+    end
   end
 
   describe "#mix!" do
-    it "shuffles the ingredient array"
+    it "shuffles the ingredient array" do
+      ingredients = ['barley', 'wheat', 'hay']
+
+      ingredients.each do |ingredient|
+        brownie.add_ingredient(ingredient)
+      end
+      brownie.mix!
+
+      expect(brownie.ingredients).to_not eq(ingredients)
+    end
+
   end
 
   describe "#eat" do
-    it "subtracts an amount from the quantity"
 
-    it "raises an error if the amount is greater than the quantity"
+    it "subtracts an amount from the quantity" do
+      expect(brownie.eat(50)).to eq(50)
+    end
+
+    it "raises an error if the amount is greater than the quantity" do
+      expect { brownie.eat(150) }.to raise_error("not enough left!")
+    end
   end
 end
