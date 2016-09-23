@@ -1,6 +1,4 @@
 class LRUCache
-  attr_accessor :cash
-  attr_reader :size
 
   def initialize(size)
     @cash = []
@@ -8,22 +6,22 @@ class LRUCache
   end
 
   def count
-    cash.count
+    @cash.count
   end
 
   def add(el)
-    cash.delete(el)
-    cash.push(el)
-    remove_extra if cash.count > size
+    @cash.delete(el)
+    @cash.push(el)
+    remove_extra if @cash.count > @size
   end
 
   def show
-    p cash
+    p @cash
     nil
   end
 
   def remove_extra
-    cash.shift
+    @cash.shift
   end
 
 end
